@@ -924,6 +924,9 @@ static sw_inline int sw_zend_call_function_ex(
     zval _retval;
 
     fci.size = sizeof(fci);
+#if PHP_VERSION_ID >= 80600
+    fci.consumed_args = 0;
+#endif
     fci.object = nullptr;
     if (!fci_cache || !fci_cache->function_handler) {
         if (!function_name) {

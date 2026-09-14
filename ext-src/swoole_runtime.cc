@@ -2486,6 +2486,9 @@ static PHP_FUNCTION(swoole_user_func_handler) {
 
     zend_fcall_info fci;
     fci.size = sizeof(fci);
+#if PHP_VERSION_ID >= 80600
+    fci.consumed_args = 0;
+#endif
     fci.object = nullptr;
     fci.retval = return_value;
     fci.param_count = ZEND_NUM_ARGS();

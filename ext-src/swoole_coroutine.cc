@@ -351,6 +351,9 @@ PHPContext *PHPCoroutine::create_context(const Args *args) {
 
     ctx->fci_cache = *args->fci_cache;
     ctx->fci.size = sizeof(ctx->fci);
+#if PHP_VERSION_ID >= 80600
+    ctx->fci.consumed_args = 0; /* 8.6: unset bits make zend_call_function move args it does not own */
+#endif
     ctx->fci.object = nullptr;
     ctx->fci.param_count = args->argc;
     ctx->fci.params = args->argv;
