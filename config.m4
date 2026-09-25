@@ -1160,8 +1160,10 @@ EOF
         AC_DEFINE(SW_THREAD, 1, [enable swoole thread support])
     fi
 
+    dnl This branch never defines SW_STDEXT: with stdext on, PHP 8.6 crashes entering a coroutine.
+    dnl --enable-swoole-stdext is still accepted, so builders that pass it configure unchanged.
     if test "$PHP_SWOOLE_STDEXT" != "no"; then
-        AC_DEFINE(SW_STDEXT, 1, [enable swoole stdext support])
+        AC_MSG_WARN([--enable-swoole-stdext is ignored on this branch: stdext stays off for PHP 8.6])
     fi
 
     if test "$PHP_SOCKETS" = "yes"; then
